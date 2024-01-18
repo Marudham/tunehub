@@ -2,11 +2,13 @@ package com.tunehub.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tunehub.entities.Users;
+import com.tunehub.services.SongService;
 import com.tunehub.services.UsersService;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +22,9 @@ public class UsersController {
 
 	@Autowired
 	UsersService userService;
+	
+	@Autowired
+	SongService songService;
 	
 	@PostMapping("/register")
 	public String addUsers(@ModelAttribute Users user) {
@@ -39,7 +44,7 @@ public class UsersController {
 	@PostMapping("/validate")
 	public String validate(@RequestParam("email") String email,
 			@RequestParam("password") String password,
-			HttpSession session) {
+			HttpSession session, Model model) {
 		
 		if(userService.validateUser(email, password)) {
 			String role = userService.getUserRole(email);
@@ -48,24 +53,15 @@ public class UsersController {
 			if(role.equals("Admin")) {
 				return "adminHome";
 			}else {
+				model.addAttribute("isPremium", userService.getUser(email).isPremium());
+				model.addAttribute("songs", songService.fetchAllSongs());
 				return "customerHome";
 			}
 		}else {
 			return "login";
 		}
 	}
-
-/*	@GetMapping("/pay")
-	public String pay(@RequestParam String email) {
-		boolean paymentStatus = false;//payment api
-		if(paymentStatus) {
-			Users user = userService.getUser(email);
-			user.setPremium(true);
-			userService.updateUser(user);
-		}
-		return "login";
-	}
-*/
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

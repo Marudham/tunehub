@@ -66,9 +66,11 @@
 		     $.post("/verify", { orderId: orderId, paymentId: paymentId, signature: signature })
 		         .done(function(isValid) {
 		             if (isValid) {
-		                 console.log("Payment successful");
+		                 alert("Payment successful");
+		                 window.location.href = 'payment-success';
 		             } else {
-		                 console.log("Payment failed");
+		                 alert("Payment failed");
+		                 window.location.href = 'payment-failure';
 		             }
 		         })
 		         .fail(function(error) {
