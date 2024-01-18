@@ -1,2 +1,2 @@
 # tunehub
-Tunehub is music streaaming web application
+Tunehub is music streaming web application
