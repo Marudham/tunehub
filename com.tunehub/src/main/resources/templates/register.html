@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Register - Tunehub</title>
+</head>
+<body>
+	<h1>Users Register : </h1>
+
+	<form action="/register" method="post">
+		<label>User name : </label><input type="text" name="username" placeholder="Enter username" required="required"/>
+		<br><br>
+		<label>Email : </label><input type="email" name="email" placeholder="Enter email" required="required"/>
+		<br><br>
+		<label>Password : </label><input type="password" name="password" placeholder="Enter password" required="required"/>
+		<br><br>
+		<label>Gender : </label>
+		<input type="radio" name="gender" value="Male" />Male
+		<input type="radio" name="gender" value="Female" required="required"/>Female
+		<input type="radio" name="gender" value="Other" required="required"/>Other
+		<br><br>
+		<label>Role : </label>
+		<input type="radio" name="role" value="Admin" required="required"/>Admin
+		<input type="radio" name="role" value="Customer" required="required"/>Customer
+		<br><br>
+		<label>Address : </label><textarea name="address" required="required"></textarea>
+		<br><br>
+		<input type="submit" value="Register">
+	</form>
+</body>
+</html>
