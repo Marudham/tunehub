@@ -15,8 +15,6 @@ import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
 @Controller
 public class UsersController {
 
@@ -42,10 +40,8 @@ public class UsersController {
 	}
 	
 	@PostMapping("/validate")
-	public String validate(@RequestParam("email") String email,
-			@RequestParam("password") String password,
+	public String validate(@RequestParam("email") String email, @RequestParam("password") String password,
 			HttpSession session, Model model) {
-		
 		if(userService.validateUser(email, password)) {
 			String role = userService.getUserRole(email);
 			//
@@ -54,6 +50,7 @@ public class UsersController {
 				return "adminHome";
 			}else {
 				model.addAttribute("isPremium", userService.getUser(email).isPremium());
+				System.out.println(email+"\n"+userService.getUser(email).isPremium());
 				model.addAttribute("songs", songService.fetchAllSongs());
 				return "customerHome";
 			}
